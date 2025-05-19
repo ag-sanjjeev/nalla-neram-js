@@ -8,6 +8,7 @@
 .panchangam.table thead th {
   background-color: var(--bs-warning) !important;
   color: var(--bs-dark);
+  vertical-align: middle;
 }
 
 /* Styles for time column */

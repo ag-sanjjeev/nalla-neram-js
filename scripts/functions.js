@@ -26,6 +26,20 @@
 // Functions
 
 /**
+ * Convert mixed unicode characters to proper text
+ * @param {string|object} mixedData
+ * @returns {string|object}
+ */
+function convertMixedUnicodeToText(mixedData) {
+	if (!mixedData) { return null; } // if any invalid input return null
+	let dataType = typeof mixedData;
+	if (dataType === 'object') { mixedData = JSON.stringify(mixedData); }
+	const unicodePattern = /&#(\d+);/g;
+	const convertedString = mixedData.replace(unicodePattern, (match, p1) => String.fromCharCode(p1));
+	return (dataType === 'object') ? JSON.parse(convertedString) : convertedString;
+}
+
+/**
  * Get Tamil Day for corresponding day
  * @param {integer} dayIndex
  * @param {float} time
@@ -35,7 +49,7 @@ function getCorrespondingTamilDay(dayIndex, time) {
 	let hour = Math.floor(time);
 	if (hour < 6) { dayIndex -= 1; }
 	dayIndex = (dayIndex < 0) ? 6 : dayIndex;
-	return tamilDays[dayIndex];
+	return convertMixedUnicodeToText(tamilDays[dayIndex]);
 }
 
 /**
@@ -69,6 +83,7 @@ function minutesTo12HourTimeFormat(time) {
 	let hour12 = (hour24 % 12 === 0) ? 12 : hour24 % 12; 
 	let minutes = time % 60;
 	let period = (hour24 >= 6 && hour24 < 18) ? "பகல்" : "இரவு";
+	period = convertMixedUnicodeToText(period); // convert mixed unicode to text
 	let hourString = String(hour12).padStart(2, 0);
 	let minuteString = String(minutes).padStart(2, 0);
 	return `${period} ${hourString}:${minuteString}`;
@@ -81,10 +96,12 @@ function minutesTo12HourTimeFormat(time) {
  * @returns {object | null}
  */
 function getOrai(dayKey, time) {
- 	let data = oraiData[dayKey];
+ 	let data = convertMixedUnicodeToText(oraiData); // convert mixed unicode to text
+ 	data = data[dayKey];
  	if (!data) { return null; } // if undefined or not exist then return null
  	let hour = Math.floor(time);
  	let period = (hour >= 6 && hour < 18) ? "பகல்" : "இரவு";
+ 	period = convertMixedUnicodeToText(period);
  	data = data[period];
  	if (!data) { return null; } // if undefined or not exist then return null
 
@@ -114,10 +131,12 @@ function getOrai(dayKey, time) {
  * @returns {object | null}
  */
 function getGowriPanchangam(dayKey, time) {
- 	let data = gowriPanchangamData[dayKey];
+ 	let data = convertMixedUnicodeToText(gowriPanchangamData); // convert mixed unicode to text
+ 	data = data[dayKey];
  	if (!data) { return null; } // returns null when undefined or not exist
  	let hour = Math.floor(time);
  	let period = (hour >= 6 && hour < 18) ? "பகல்" : "இரவு";
+ 	period = convertMixedUnicodeToText(period); // convert mixed unicode to text
  	data = data[period];
  	if (!data) { return null; } // returns null when undefined or not exist
 
@@ -147,10 +166,12 @@ function getGowriPanchangam(dayKey, time) {
  * @returns {object | null}
  */
 function getAsubhaKaalam(dayKey, time) {
- 	let data = asubhaKaalamData[dayKey];
+ 	let data = convertMixedUnicodeToText(asubhaKaalamData); // convert mixed unicode to text
+ 	data = data[dayKey];
  	if (!data) { return null; } // returns null when undefined or not exist
  	let hour = Math.floor(time);
  	let period = (hour >= 6 && hour < 18) ? "பகல்" : "இரவு";
+ 	period = convertMixedUnicodeToText(period); // convert mixed unicode to text
  	data = data[period];
  	if (!data) { return null; } // returns null when undefined or not exist
 
@@ -232,7 +253,7 @@ function prepareTable(dayKey) {
  		if (previousOrai == null || previousOrai != currentOrai) {
  			oraiCell = document.createElement('td');
  			oraiCell.textContent = currentOrai;
- 			oraiCellType == "சுபம்" ? oraiCell.classList.add('subham-cell') : oraiCell.classList.add('asubham-cell');
+ 			oraiCellType == convertMixedUnicodeToText("சுபம்") ? oraiCell.classList.add('subham-cell') : oraiCell.classList.add('asubham-cell');
  			tr.appendChild(oraiCell);
  			previousOrai = currentOrai; 			
  		} else {
@@ -246,7 +267,7 @@ function prepareTable(dayKey) {
  		if (previousGowriPanchangam == null || previousGowriPanchangam != currentGowriPanchangam) {
  			gowriPanchangamCell = document.createElement('td');
  			gowriPanchangamCell.textContent = currentGowriPanchangam;
- 			gowriPanchangamCellType == "சுபம்" ? gowriPanchangamCell.classList.add('subham-cell') : gowriPanchangamCell.classList.add('asubham-cell');
+ 			gowriPanchangamCellType == convertMixedUnicodeToText("சுபம்") ? gowriPanchangamCell.classList.add('subham-cell') : gowriPanchangamCell.classList.add('asubham-cell');
  			tr.appendChild(gowriPanchangamCell);
  			previousGowriPanchangam = currentGowriPanchangam; 			
  		} else {
@@ -259,8 +280,8 @@ function prepareTable(dayKey) {
  		if (previousAsubhaKaalam == null || previousAsubhaKaalam != currentAsubhaKaalam) {
  			asubhaKaalamCell = document.createElement('td');
  			asubhaKaalamCell.textContent = currentAsubhaKaalam;
- 			asubhaKaalamCellType = (currentAsubhaKaalamData == null) ? "சுபம்" : "அசுபம்";
- 			asubhaKaalamCellType == "சுபம்" ? asubhaKaalamCell.classList.add('subham-cell') : asubhaKaalamCell.classList.add('asubham-cell');
+ 			asubhaKaalamCellType = (currentAsubhaKaalamData == null) ? convertMixedUnicodeToText("சுபம்") : convertMixedUnicodeToText("அசுபம்");
+ 			asubhaKaalamCellType == convertMixedUnicodeToText("சுபம்") ? asubhaKaalamCell.classList.add('subham-cell') : asubhaKaalamCell.classList.add('asubham-cell');
  			tr.appendChild(asubhaKaalamCell);
  			previousAsubhaKaalam = currentAsubhaKaalam; 			
  		} else {
@@ -271,7 +292,7 @@ function prepareTable(dayKey) {
  		tbody.appendChild(tr);
 
  		// Auspicious TimeSlots Preparation 		
- 		if (oraiCellType == "சுபம்" && gowriPanchangamCellType == "சுபம்" && asubhaKaalamCellType == "சுபம்") { 			
+ 		if (oraiCellType == convertMixedUnicodeToText("சுபம்") && gowriPanchangamCellType == convertMixedUnicodeToText("சுபம்") && asubhaKaalamCellType == convertMixedUnicodeToText("சுபம்")) { 			
 	 		auspiciousTimeSlots.push({
 	 			start: `${minutesTo12HourTimeFormat(totalMinutes)}`,
 	 			end: `${minutesTo12HourTimeFormat(totalMinutes + 30)}`,
@@ -299,7 +320,7 @@ function prepareAuspiciousTimeSlots(timeSlots) {
  	// Iterate over all time slots available
  	for (let slot of timeSlots) {
  		let div = document.createElement('div');
- 		div.className = 'bg-success d-flex flex-wrap gap-2 p-2 rounded';
+ 		div.className = 'bg-success d-flex flex-wrap align-items-center gap-2 p-2 rounded';
 
  		// time span preparation
  		let timeSpan = document.createElement('span');
@@ -308,10 +329,16 @@ function prepareAuspiciousTimeSlots(timeSlots) {
  		div.appendChild(timeSpan);
 
  		// detail span preparation
- 		let detailSpan = document.createElement('span');
- 		detailSpan.className = 'text-light fw-normal text-wrap';
- 		detailSpan.textContent = `ஓரை:${slot.orai}, கௌரி பஞ்சாங்கம்:${slot.gowriPanchangam}.`;
- 		div.appendChild(detailSpan);
+ 		let detailSpan1 = document.createElement('span');
+ 		detailSpan1.className = 'text-light small fw-normal text-wrap';
+ 		detailSpan1.textContent = `${convertMixedUnicodeToText('ஓரை')}:${slot.orai}`;
+ 		div.appendChild(detailSpan1);
+
+ 		// detail span preparation
+ 		let detailSpan2 = document.createElement('span');
+ 		detailSpan2.className = 'text-light small fw-normal text-wrap';
+ 		detailSpan2.textContent = `${convertMixedUnicodeToText('கௌரி பஞ்சாங்கம்')}:${slot.gowriPanchangam}`;
+ 		div.appendChild(detailSpan2);
 
  		// append div to the list container
  		auspiciousList.appendChild(div);

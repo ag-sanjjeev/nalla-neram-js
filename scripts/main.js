@@ -41,7 +41,7 @@ document.querySelectorAll('.day-selector input[type="radio"]').forEach(function(
 // Initialization
 const today = new Date();
 const currentDayIndex = today.getDay();
-const currentTamilDay = tamilDays[currentDayIndex];
+const currentTamilDay = convertMixedUnicodeToText(tamilDays[currentDayIndex]);
 let currentDayInput = document.querySelector(`.day-selector input[type="radio"][value="${currentTamilDay}"]`);
 
 // Proceed with default current day or Sunday
@@ -52,7 +52,7 @@ if (currentDayInput) {
     prepareAuspiciousTimeSlots(auspiciousTimeSlot);
 } else {
     // Fallback: Activate Sunday and generate its table
-    currentDayInput = document.querySelector('.day-selector input[type="radio"][value="ஞாயிறு"]');
+    currentDayInput = document.querySelector(`.day-selector input[type="radio"][value="${convertMixedUnicodeToText('ஞாயிறு')}"]`);
     currentDayInput.checked = true;
     currentDayInput.nextElementSibling.classList.add('active'); 
     let auspiciousTimeSlot = prepareTable(currentTamilDay);
