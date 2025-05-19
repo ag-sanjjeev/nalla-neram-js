@@ -1,0 +1,53 @@
+/* Custom styling for active button */
+.day-selector .btn.active {
+  background-color: var(--bs-primary);
+  color: white;
+}
+
+/* Style for thead */
+.panchangam.table thead th {
+  background-color: var(--bs-warning) !important;
+  color: var(--bs-dark);
+}
+
+/* Styles for time column */
+.panchangam.table tbody tr:nth-child(odd) td:nth-child(1) {
+  background-color: var(--bs-primary) !important;
+  color: var(--bs-light);
+}
+.panchangam.table tbody tr:nth-child(odd):hover td:nth-child(1) { /* hover */
+  background-color: var(--bs-warning) !important;
+  color: var(--bs-dark);
+}
+
+.panchangam.table tbody tr:nth-child(even) td:nth-child(1) {
+  background-color: var(--bs-light) !important;
+  color: var(--bs-primary);
+}
+.panchangam.table tbody tr:nth-child(even):hover td:nth-child(1) { /* hover */
+  background-color: var(--bs-warning) !important;
+  color: var(--bs-dark);
+}
+
+/* Styles for subham/asubham */
+.panchangam.table .subham-cell {
+  background-color: var(--bs-success) !important;
+  color: var(--bs-light) !important;
+}
+.panchangam.table tr:hover .subham-cell, .subham-cell:hover {
+  background-color: var(--bs-light) !important;
+  color: var(--bs-success) !important;
+}
+.panchangam.table .asubham-cell {
+  background-color: var(--bs-danger) !important;
+  color: var(--bs-light) !important;
+}
+.panchangam.table tr:hover .asubham-cell, .asubham-cell:hover {
+  background-color: var(--bs-light) !important;
+  color: var(--bs-danger) !important;
+}
+
+/* Vertical align cell content */
+#panchangam-tbody td {
+  vertical-align: middle;
+}

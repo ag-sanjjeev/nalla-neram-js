@@ -1,0 +1,95 @@
+<!-- /*
+ *  Today Nalla Neram
+ *  
+ *  Copyright 2025 ag-sanjjeev               		
+ * 
+ *  The source code is licensed under  MIT-style 
+ *  License. The usage, permission and condition 
+ *  are applicable  to  this source code  as per 		
+ *  license.  That can be found in  LICENSE file
+ *  or at https://opensource.org/licenses/MIT.			
+ * 
+ */ -->
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>இன்றைய நல்ல நேரம்</title>
+    <!-- Thirdparty Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/css/bootstrap.min.css" integrity="sha512-XWTTruHZEYJsxV3W/lSXG1n3Q39YIWOstqvmFsdNEEQfHoZ6vm6E9GK2OrF6DSJSpIbRbi+Nn0WDPID9O7xB2Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Custom Styles -->
+    <link rel="stylesheet" type="text/css" href="./styles/main.css" media="all">
+</head>
+<body>
+	<!-- Main Container -->
+	<main class="container-fluid">
+		<!-- Input Container -->
+    <div class="rounded p-3 p-md-4">
+        <h2 class="text-center mb-4 text-primary">நல்ல நேரம்</h2>
+        <p class="mt-0 mt-md-2 text-muted text-center small fst-italic">ஓரை, கௌரி பஞ்சாங்கம் மற்றும் அசுபகாலம் அடிப்படையில் தேர்வு செய்த கிழமைக்கான நல்ல நேரங்கள்</p>
+        <div class="d-flex flex-wrap justify-content-center gap-2 mb-4 day-selector">
+            <div class="form-check form-check-inline">
+              <input type="radio" name="day" class="btn-check" id="sunday" value="ஞாயிறு" autocomplete="off">
+              <label for="sunday" class="btn btn-outline-primary">ஞாயிறு</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input type="radio" name="day" class="btn-check" id="monday" value="திங்கள்" autocomplete="off">
+              <label for="monday" class="btn btn-outline-primary">திங்கள்</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input type="radio" name="day" class="btn-check" id="tuesday" value="செவ்வாய்" autocomplete="off">
+              <label for="tuesday" class="btn btn-outline-primary">செவ்வாய்</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input type="radio" name="day" class="btn-check" id="wednesday" value="புதன்" autocomplete="off">
+              <label for="wednesday" class="btn btn-outline-primary">புதன்</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input type="radio" name="day" class="btn-check" id="thursday" value="வியாழன்" autocomplete="off">
+              <label for="thursday" class="btn btn-outline-primary">வியாழன்</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input type="radio" name="day" class="btn-check" id="friday" value="வெள்ளி" autocomplete="off">
+              <label for="friday" class="btn btn-outline-primary">வெள்ளி</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input type="radio" name="day" class="btn-check" id="saturday" value="சனி" autocomplete="off">
+              <label for="saturday" class="btn btn-outline-primary">சனி</label>
+            </div>            
+        </div>
+    </div>
+
+    <!-- Auspicious Time List -->
+    <div id="auspicious-times" class="mb-4 p-3 bg-light rounded-3 border border-success-subtle" style="display: none;">
+     <h5 class="text-center text-success-emphasis fw-bold mb-3">தேர்வு செய்த தினத்திற்கான நல்ல நேரங்கள்</h5>
+     <div id="auspicious-list" class="d-flex flex-column align-items-center gap-2"></div>
+    </div>
+
+    <!-- Nalla Neram Table -->
+    <div class="table-responsive">
+      <table class="panchangam table table-bordered table-sm text-center table-light">
+          <thead class="sticky-top">
+              <tr>
+                  <th>நேரம் (அரை மணிக்கு)</th>
+                  <th>ஓரை (1 மணி நேரம்)</th>
+                  <th>கௌரி பஞ்சாங்கம் (1.5 மணி நேரம்)</th>
+                  <th>அசுபகாலம் (1.5 மணி நேரம்)</th>
+              </tr>
+          </thead>
+          <tbody id="panchangam-tbody"></tbody>
+      </table>
+  	</div>
+	</main>
+
+	<!-- Thirdparty Scripts -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/js/bootstrap.min.js" integrity="sha512-8Y8eGK92dzouwpROIppwr+0kPauu0qqtnzZZNEF8Pat5tuRNJxJXCkbQfJ0HlUG3y1HB3z18CSKmUo7i2zcPpg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	<!-- Data  -->
+	<script type="text/javascript" src="./scripts/data.js"></script>
+	<!-- Functions -->
+	<script type="text/javascript" src="./scripts/functions.js"></script>
+	<!-- Main Script -->
+	<script type="text/javascript" src="./scripts/main.js"></script>
+</body>
+</html>
